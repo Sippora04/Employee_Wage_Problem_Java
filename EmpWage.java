@@ -25,14 +25,6 @@ public class EmpWage
             }
            totalEmpHrs+=empHrs;
            System.out.println("Day "+ totalWorkingDays + " Employee Hour: " + empHrs );
-           if ( totalEmpHrs > 100 )
-           {
-               System.out.println("100 cross");
-               totalEmpHrs=totalEmpHrs-4;
-               totalEmpWage=totalEmpHrs-80;
-               System.out.println("TotalEmpHrs: "+ totalEmpHrs);
-               break;
-           }
         }
         totalEmpWage= totalEmpHrs * EMP_RATE_PER_HOUR;
         System.out.println("Total Emp Hour is:" + totalEmpHrs + " Total Emp Wage is:" + totalEmpWage);
