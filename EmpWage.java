@@ -81,3 +81,27 @@ public class EmpWage
       bigBazaar.getMonthlyWage();
    }
 }
+
+/*
+OUTPUT:
+$ java EmpWage
+
+Welcome to Employee Wage Computation/Problem
+
+
+Day No.         DailyWage       TotalWage
+Day1            160             160
+Day2            0               160
+Day3            160             320
+Day4            80              400
+
+Total salary of an employee of VMart Company is 400
+
+
+Day No.         DailyWage       TotalWage
+Day1            0               400
+Day2            120             520
+
+Total salary of an employee of BigBazaar Company is 520
+
+*/
