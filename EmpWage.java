@@ -2,12 +2,14 @@ import java.util.*;
 public class EmpWage implements EmpWageInterface
 {   
    int empHours = 0;
+   private Map<String, Integer> companyWageMap;
    private final ArrayList<CompanyEmpWage> companyArray;
    private int numofCompany=0;
    
    public EmpWage()
    {
     companyArray = new ArrayList<>();
+    companyWageMap = new HashMap<>();
    }
    
    public void addCompanyEmployee(String company, int empRatePerHour, int workingDaysInMonth, int maximunWorkHours)
@@ -35,16 +37,27 @@ public class EmpWage implements EmpWageInterface
       for (int i=0; i< numofCompany; i++)
       { 
         getMonthlyWage(companyArray.get(i));
-	System.out.println(" Company: " + companyArray.get(i).company + " Employee Wage :" + companyArray.get(i).totalSalary);
+	System.out.println(" Company: " + companyArray.get(i).company + " :  Employee Wage : " + companyArray.get(i).totalSalary);
         int oldWage = 0;
-        System.out.println("Day         Wage         Total Wage");
+        System.out.println("Day     DailyWage       Total Wage");
 	for (int j=0; j < companyArray.get(i).dailyWage.size(); j++ )
         {
-            System.out.println("Day: " + j +"      "+(companyArray.get(i).dailyWage.get(j)-oldWage)+"       "+companyArray.get(i).dailyWage.get(j));
+            System.out.println("Day: " + j +"       "+(companyArray.get(i).dailyWage.get(j)-oldWage)+"          "+companyArray.get(i).dailyWage.get(j));
             oldWage = companyArray.get(i).dailyWage.get(j);
 	}
       } 
    }
+   
+   public void wagePerCompany()
+    {
+        Set set= companyWageMap.entrySet();
+	Iterator itr=set.iterator();
+        while(itr.hasNext())
+        {
+            Map.Entry entry=(Map.Entry)itr.next();
+            System.out.println(entry.getKey()+":"+entry.getValue());
+        }
+    }
    
    public int getMonthlyWage( CompanyEmpWage company )
    {  
@@ -68,6 +81,7 @@ public class EmpWage implements EmpWageInterface
          }   
          company.storeDailyWage(dailyWageArray);
          company.getTotalWage(totalSalary);
+         companyWageMap.put(company.company, totalSalary );
        return 0;
     }
 
@@ -82,3 +96,53 @@ public class EmpWage implements EmpWageInterface
       employeeWage.getCalculationDailyWage();
    }
 }
+
+/*
+OUTPUT:
+
+Welcome to Employee Wage Computation/Problem
+
+ Company: Vishal Mart : Employee Wage :480
+Day     DailyWage       Total Wage
+Day: 0       80          80
+Day: 1       160         240
+Day: 2       80          320
+Day: 3       160         480
+ Company: BigBazaar : Employee Wage :120
+Day     DailyWage       Total Wage
+Day: 0       60          60
+Day: 1       60          120
+Day: 2       0           120
+Day: 3       0           120
+Day: 4       0           120
+ Company: City Style : Employee Wage :2400
+Day     DailyWage       Total Wage
+Day: 0       120         120
+Day: 1       0           120
+Day: 2       240         360
+Day: 3       240         600
+Day: 4       0           600
+Day: 5       0           600
+Day: 6       0           600
+Day: 7       120         720
+Day: 8       0           720
+Day: 9       240         960
+Day: 10      120         1080
+Day: 11      0           1080
+Day: 12      240         1320
+Day: 13      240         1560
+Day: 14      240         1800
+Day: 15      0           1800
+Day: 16      0           1800
+Day: 17      240         2040
+Day: 18      120         2160
+Day: 19      240         2400
+ Company: City Style : Employee Wage :192
+Day     DailyWage       Total Wage
+Day: 0       48          48
+Day: 1       0           48
+Day: 2       48          96
+Day: 3       0           96
+Day: 4       96          192
+
+*/
