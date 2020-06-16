@@ -1,18 +1,16 @@
 
 import java.util.*;
 
-public class EmpWage
+public class EmpWage implements EmpWageInterface
 {
    public static int empHours = 0;
-   public static final int IS_EMP_FULL_TIME = 1;
-   public static final int IS_EMP_PART_TIME = 2;
-   
-   private final ArrayList<CompanyEmpWage> companyArray;
+      
+   private ArrayList<CompanyEmpWage> companyArray;
    private int numofCompany=0;
    
    public EmpWage()
    {
-    companyArray = new ArrayList<>();
+    companyArray = new ArrayList<CompanyEmpWage>();
    }
    
    public void addCompanyEmployee(String company, int empRatePerHour, int workingDaysInMonth, int maximunWorkHours)
@@ -46,7 +44,6 @@ public class EmpWage
    public int getMonthlyWage(CompanyEmpWage company )
    {
       int totalEmpHours = 0, dailyWage = 0, totalSalary = 0, totalWorkingDays = 0;
-//    System.out.println("\nDay No.		DailyWage	TotalWage");
       while (totalEmpHours < company.maximunWorkHours && totalWorkingDays < company.workingDaysInMonth )
       {
          int empCheck = (int) Math.floor(Math.random() * 10) % 3;
@@ -55,17 +52,12 @@ public class EmpWage
          totalSalary = totalSalary + dailyWage;
          totalEmpHours += empHours;
          totalWorkingDays++;
-       //calculatingDailyWage = getCalculationDailyWage();
-       //totalSalary = totalSalary + calculatingDailyWage;
-       //System.out.println("Day"+totalWorkingDays+"		"+totalSalary);
          if( totalEmpHours > company.maximunWorkHours )
            {
                return company.empRatePerHour * company.maximunWorkHours;
            }
          
         }
-//       System.out.println("Total Emp Hrs: "+totalEmpHours );
-//       System.out.println("\nTotal salary of an employee of " + company + " Company is " + totalSalary + " \n " );
          return totalSalary;
     }
 
