@@ -1,14 +1,13 @@
 import java.util.*;
 public class EmpWage implements EmpWageInterface
-{
-   public static int empHours = 0;
-   
-   private ArrayList<CompanyEmpWage> companyArray;
+{   
+   int empHours = 0;
+   private final ArrayList<CompanyEmpWage> companyArray;
    private int numofCompany=0;
    
    public EmpWage()
    {
-    companyArray = new ArrayList<CompanyEmpWage>();
+    companyArray = new ArrayList<>();
    }
    
    public void addCompanyEmployee(String company, int empRatePerHour, int workingDaysInMonth, int maximunWorkHours)
@@ -18,7 +17,7 @@ public class EmpWage implements EmpWageInterface
         numofCompany++;
     }
 
-   public int getWorkingHours(int empCheck)
+   public int getWorkingHours(int empCheck )
    {
       switch (empCheck)
       {
@@ -37,28 +36,39 @@ public class EmpWage implements EmpWageInterface
       { 
         getMonthlyWage(companyArray.get(i));
 	System.out.println(" Company: " + companyArray.get(i).company + " Employee Wage :" + companyArray.get(i).totalSalary);
+        int oldWage = 0;
+        System.out.println("Day         Wage         Total Wage");
+	for (int j=0; j < companyArray.get(i).dailyWage.size(); j++ )
+        {
+            System.out.println("Day: " + j +"      "+(companyArray.get(i).dailyWage.get(j)-oldWage)+"       "+companyArray.get(i).dailyWage.get(j));
+            oldWage = companyArray.get(i).dailyWage.get(j);
+	}
       } 
    }
    
-   public void getMonthlyWage(CompanyEmpWage company )
-   {
+   public int getMonthlyWage( CompanyEmpWage company )
+   {  
       int totalEmpHours = 0, totalSalary = 0, totalWorkingDays = 0;
+      ArrayList<Integer> dailyWageArray = new ArrayList<>();
       while (totalEmpHours < company.maximunWorkHours && totalWorkingDays < company.workingDaysInMonth )
       {
          int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-         empHours = getWorkingHours(empCheck);
+         empHours = getWorkingHours(empCheck );
          int dailyWage = 0;
          dailyWage = company.empRatePerHour * empHours;
          totalSalary = totalSalary + dailyWage;
+         dailyWageArray.add(totalSalary);
          totalEmpHours += empHours;
          ++totalWorkingDays;
-         if( totalEmpHours > company.maximunWorkHours )
-           {
-               company.getTotalWage(totalSalary);
-           }
          
         }
+         if( totalEmpHours > company.maximunWorkHours )
+         {
+            company.getTotalWage(totalSalary);
+         }   
+         company.storeDailyWage(dailyWageArray);
          company.getTotalWage(totalSalary);
+       return 0;
     }
 
    public static void main(String args[])
@@ -68,8 +78,7 @@ public class EmpWage implements EmpWageInterface
       employeeWage.addCompanyEmployee("Vishal Mart", 20, 4, 30 );
       employeeWage.addCompanyEmployee("BigBazaar", 15, 5, 25 );
       employeeWage.addCompanyEmployee("City Style", 30, 20 ,100 );
-		employeeWage.addCompanyEmployee("City Style", 12, 5 ,10 );
+      employeeWage.addCompanyEmployee("City Style", 12, 5 ,10 );
       employeeWage.getCalculationDailyWage();
    }
 }
-

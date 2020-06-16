@@ -1,10 +1,15 @@
+
+import java.util.ArrayList;
+
 class CompanyEmpWage
 {
         public final String company;
         public final int empRatePerHour;
-        final int workingDaysInMonth;
-        final int maximunWorkHours;
+        public final int workingDaysInMonth;
+        public final int maximunWorkHours;
         public int totalEmpWage;
+        int totalSalary;
+        public ArrayList<Integer> dailyWage = new ArrayList<>();
         public CompanyEmpWage( String company, int empRatePerHour, int workingDaysInMonth, int maximunWorkHours )
         {
             this.company = company;
@@ -13,13 +18,12 @@ class CompanyEmpWage
             this.maximunWorkHours = maximunWorkHours;
         }
 
-public void setTotalEmpWage(int totalEmpWage) 
-{
-        this.totalEmpWage = totalEmpWage;
-}
-@Override
-public String toString() 
-{
-        return ("Total Emp Wage for Company: " +company+ " is: " + totalEmpWage);
-}
+    public void getTotalWage(int totalSalary )
+    {
+        this.totalSalary = totalSalary;
+    }
+    public void storeDailyWage(ArrayList<Integer> dailyWage )
+    {
+        this.dailyWage = dailyWage;
+    }   
 }
