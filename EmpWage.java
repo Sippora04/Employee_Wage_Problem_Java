@@ -1,10 +1,8 @@
-
 import java.util.*;
-
 public class EmpWage implements EmpWageInterface
 {
    public static int empHours = 0;
-      
+   
    private ArrayList<CompanyEmpWage> companyArray;
    private int numofCompany=0;
    
@@ -37,28 +35,30 @@ public class EmpWage implements EmpWageInterface
    {    
       for (int i=0; i< numofCompany; i++)
       { 
-        System.out.println("Employee " + getMonthlyWage( companyArray.get(i)) );
+        getMonthlyWage(companyArray.get(i));
+	System.out.println(" Company: " + companyArray.get(i).company + " Employee Wage :" + companyArray.get(i).totalSalary);
       } 
    }
    
-   public int getMonthlyWage(CompanyEmpWage company )
+   public void getMonthlyWage(CompanyEmpWage company )
    {
-      int totalEmpHours = 0, dailyWage = 0, totalSalary = 0, totalWorkingDays = 0;
+      int totalEmpHours = 0, totalSalary = 0, totalWorkingDays = 0;
       while (totalEmpHours < company.maximunWorkHours && totalWorkingDays < company.workingDaysInMonth )
       {
          int empCheck = (int) Math.floor(Math.random() * 10) % 3;
          empHours = getWorkingHours(empCheck);
+         int dailyWage = 0;
          dailyWage = company.empRatePerHour * empHours;
          totalSalary = totalSalary + dailyWage;
          totalEmpHours += empHours;
-         totalWorkingDays++;
+         ++totalWorkingDays;
          if( totalEmpHours > company.maximunWorkHours )
            {
-               return company.empRatePerHour * company.maximunWorkHours;
+               company.getTotalWage(totalSalary);
            }
          
         }
-         return totalSalary;
+         company.getTotalWage(totalSalary);
     }
 
    public static void main(String args[])
@@ -68,6 +68,8 @@ public class EmpWage implements EmpWageInterface
       employeeWage.addCompanyEmployee("Vishal Mart", 20, 4, 30 );
       employeeWage.addCompanyEmployee("BigBazaar", 15, 5, 25 );
       employeeWage.addCompanyEmployee("City Style", 30, 20 ,100 );
+		employeeWage.addCompanyEmployee("City Style", 12, 5 ,10 );
       employeeWage.getCalculationDailyWage();
    }
 }
+
